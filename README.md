@@ -41,7 +41,8 @@ Full working, including the caveats, is in [docs/ANALYSIS.md](docs/ANALYSIS.md).
 | `docs/SCOPE.md` | Questions, assumptions, measure definitions, limitations |
 | `docs/ANALYSIS.md` | Findings with caveats |
 | `docs/DATA_DICTIONARY.md` | Every column and relationship |
-| `dashboards/` | Captures from Power BI Desktop |
+| `AdunFoods.pbix` | **The report. Model, measures and all three pages** |
+| `dashboards/` | Captures from Power BI Desktop, for reading without the file |
 | `theme/` | The report theme |
 | `outputs/key_metrics.json` | Machine-readable version of every figure |
 
@@ -62,13 +63,20 @@ Page 2           12/14 states covered  largest 9.91%  17 to 80%  HHI 513.5
 Page 3           gained NGN 61,896,050  lost NGN -5,169,450  net NGN 56,726,600
 ```
 
-## Building the report yourself
+## Opening the report
 
-1. In Power BI Desktop, **Get Data > Excel Workbook** and select `data/AdunFoods_data.xlsx`. Load all five sheets as tables.
-2. Sort `Month` by `MonthNumber` and `Quarter` by a `QUARTER(Dates[Date])` column.
-3. Check the four relationships listed in the data dictionary, all single-direction and many to one.
-4. Add the measures from `docs/SCOPE.md`.
-5. Apply `theme/AdunFoods_Theme.json` via **View > Themes > Browse for themes**.
+`AdunFoods.pbix` is the report itself. Open it in Power BI Desktop and the model,
+the measures and all three pages are there to inspect. The data is embedded, so it
+opens without a refresh and without the CSVs.
+
+The things worth looking at inside it are the star schema in Model view, the four
+relationships (all single-direction, many to one), and the measures, several of
+which exist to avoid a trap rather than to produce a number. `Top active
+distributor share` filters to active distributors on purpose: without that filter
+Rivers looks like the safest state in the network when it is the most exposed.
+
+If you would rather rebuild it than open it, `docs/SCOPE.md` carries every measure
+definition and `docs/DATA_DICTIONARY.md` carries the relationships.
 
 ## A note on the data
 
